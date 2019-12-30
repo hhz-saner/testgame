@@ -1,0 +1,23 @@
+Env = "dev"
+
+[http]
+Addr = "127.0.0.1:8000"
+ReadTimeout = 5
+WriteTimeout = 5
+
+[database]
+Type = "mysql"
+Host = "localhost"
+Port = "3306"
+User = "root"
+Password = "root"
+Name = "testgame"
+Prefix = ""
+
+[cache]
+Type = "redis"
+Host = "localhost"
+Port = "6379"
+Password = ""
+DB = 0
+TimeOut = 5
