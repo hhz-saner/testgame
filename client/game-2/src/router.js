@@ -31,7 +31,6 @@ const routers = new Router({
             name: 'login',
             component: Login
         },
-
         {
             path: '/explain',
             name: 'explain',
@@ -158,7 +157,6 @@ const routers = new Router({
                 requireLogin: true
             }
         }
-
     ]
 })
 
