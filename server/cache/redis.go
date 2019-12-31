@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"gameLog/config"
+	"testgame/config"
 	"github.com/gomodule/redigo/redis"
 
 	"time"

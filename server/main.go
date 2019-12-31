@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"gameLog/config"
-	"gameLog/routers"
 	"net/http"
+	"testgame/config"
+	"testgame/routers"
 	"time"
 )
 
-func main(){
+func main() {
 	router := routers.InitRouter()
-	fmt.Println("http://"+config.Cfg.Http.Addr)
+	fmt.Println("http://" + config.Cfg.Http.Addr)
 
 	s := &http.Server{
 		Addr:           config.Cfg.Http.Addr,
@@ -19,7 +19,7 @@ func main(){
 		WriteTimeout:   time.Duration(config.Cfg.Http.WriteTimeout) * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	if err := s.ListenAndServe(); err !=nil {
+	if err := s.ListenAndServe(); err != nil {
 		panic(err.Error())
 	}
 }

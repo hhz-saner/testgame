@@ -2,10 +2,11 @@ package controller
 
 import (
 	"fmt"
-	"gameLog/database"
-	"gameLog/model"
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"testgame/database"
+	"testgame/model"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Ping(c *gin.Context) {

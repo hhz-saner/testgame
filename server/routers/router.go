@@ -2,10 +2,11 @@ package routers
 
 import (
 	"fmt"
-	"gameLog/config"
-	"gameLog/controller"
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"testgame/config"
+	"testgame/controller"
+
+	"github.com/gin-gonic/gin"
 )
 
 func InitRouter() *gin.Engine {
@@ -29,7 +30,7 @@ func InitRouter() *gin.Engine {
 // 处理跨域请求,支持options访问
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		
+
 		method := c.Request.Method
 		fmt.Println(method)
 		c.Header("Access-Control-Allow-Origin", "*")

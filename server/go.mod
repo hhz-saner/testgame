@@ -1,4 +1,4 @@
-module gameLog
+module testgame
 
 go 1.12
 

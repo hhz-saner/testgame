@@ -2,7 +2,8 @@ package database
 
 import (
 	"fmt"
-	"gameLog/config"
+	"testgame/config"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -21,7 +22,7 @@ func init() {
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		if dbConfig.Prefix != "" {
 			return dbConfig.Prefix + "_" + defaultTableName
-		}else{
+		} else {
 			return defaultTableName
 		}
 	}

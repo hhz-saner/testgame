@@ -1,7 +1,7 @@
 package model
 
 import (
-	"gameLog/database"
+	"testgame/database"
 	"time"
 )
 
@@ -15,8 +15,8 @@ func init() {
 type User struct {
 	ID            uint `gorm:"primary_key"json:"-"`
 	UserCode      string
-	GameOneStatus int // 1：测试 2：正式1 3:正式2
-	GameTwoStatus int // 1：测试 2：正式1 3:正式2
+	GameOneStatus int        // 1：测试 2：正式1 3:正式2
+	GameTwoStatus int        // 1：测试 2：正式1 3:正式2
 	CreatedAt     *time.Time `json:"-"`
 	UpdatedAt     *time.Time `json:"-"`
 }
