@@ -25,28 +25,14 @@ jobs:
           cd server
           go build -ldflags "-s -w" -o main -v main.go
 
-      - name: Stop server    
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: service game-log stop
-
       - name: Deploy to server
-        uses: appleboy/scp-action@master
         env:
-          HOST: ${{ secrets.REMOTE_HOST }}
-          USERNAME: ${{ secrets.REMOTE_USER }}
-          KEY: ${{ secrets.SERVER_SSH_KEY }}
-        with:
-          source: "server/main"
-          target: ${{ secrets.REMOTE_TARGET }}
-
-      - name: Start server    
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: service game-log start
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        run: |
+          mkdir -p $HOME/.ssh/
+          echo SERVER_SSH_KEY > $HOME/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cd server
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "service game-log stop"
+          scp main ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "service game-log start && service game-log status"
