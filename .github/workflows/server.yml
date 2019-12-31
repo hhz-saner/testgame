@@ -28,11 +28,15 @@ jobs:
       - name: Deploy to server
         env:
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
           mkdir -p $HOME/.ssh/
           echo SERVER_SSH_KEY > $HOME/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan REMOTE_HOST >> $HOME/.ssh/known_hosts
           cd server
-          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "service game-log stop"
-          scp main ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
-          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "service game-log start && service game-log status"
+          ssh REMOTE_USER@REMOTE_HOST "service game-log stop"
+          scp main REMOTE_USER@REMOTE_HOST:REMOTE_TARGET
+          ssh REMOTE_USER@REMOTE_HOST "service game-log start && service game-log status"
