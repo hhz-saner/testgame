@@ -33,10 +33,10 @@ jobs:
           REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
           mkdir -p $HOME/.ssh/
-          echo SERVER_SSH_KEY > $HOME/.ssh/id_rsa
+          echo $SERVER_SSH_KEY > $HOME/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan REMOTE_HOST >> $HOME/.ssh/known_hosts
+          ssh-keyscan $REMOTE_HOST >> $HOME/.ssh/known_hosts
           cd server
-          ssh REMOTE_USER@REMOTE_HOST "service game-log stop"
-          scp main REMOTE_USER@REMOTE_HOST:REMOTE_TARGET
-          ssh REMOTE_USER@REMOTE_HOST "service game-log start && service game-log status"
+          ssh $REMOTE_USER@$REMOTE_HOST "service game-log stop"
+          scp main $REMOTE_USER@$REMOTE_HOST:$REMOTE_TARGET
+          ssh $REMOTE_USER@$REMOTE_HOST "service game-log start && service game-log status"
