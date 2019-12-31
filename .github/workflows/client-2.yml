@@ -1,0 +1,39 @@
+name: client-2
+on:
+  push:
+    paths:
+      - "client/game-2/**"
+  pull_request:
+    paths:
+      - "client/game-2/**"
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Yarn
+        uses: sergioramos/yarn-actions/install@master
+        with:
+          frozen-lockfile: true
+
+      - name: Check out code
+        uses: actions/checkout@v1
+      - name: install coscmd
+        run: sudo pip install coscmd
+      - name: Configure coscmd
+        env:
+          SECRET_ID: ${{secrets.SECRET_ID}}
+          SECRET_KEY: ${{secrets.SECRET_KEY}}
+          BUCKET: game2-1256271987
+          REGION: ap-beijing
+        run: coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+      - name: Build
+        run: |
+          cd client/game-2
+          yarn install
+          yarn run build
+      - name: unload to cos
+        run: |
+          cd client/game-2/dist
+          coscmd upload -r ./ /
