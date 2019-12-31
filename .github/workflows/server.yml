@@ -1,8 +1,9 @@
-name: Go
+name: server
 on:
   push:
-    branches:
-      - master
+    paths:
+      - "server/*"
+  pull_request:
     paths:
       - "server/*"
 jobs:
