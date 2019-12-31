@@ -41,7 +41,6 @@ var (
 )
 
 func init() {
-	
 	filePath := flag.String("config", "./config.toml", "file path")
 	flag.Parse()
 	if _, err := toml.DecodeFile(*filePath, &Cfg); err != nil {
