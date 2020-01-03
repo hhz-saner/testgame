@@ -33,7 +33,7 @@ jobs:
           REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
           mkdir -p $HOME/.ssh/
-          echo $SERVER_SSH_KEY > $HOME/.ssh/id_rsa
+          echo "$SERVER_SSH_KEY" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           ssh-keyscan $REMOTE_HOST >> $HOME/.ssh/known_hosts
           cd server
