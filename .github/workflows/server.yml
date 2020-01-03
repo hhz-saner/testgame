@@ -20,10 +20,26 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v1
 
+      - name: install coscmd
+        run: sudo pip install coscmd
+
+      - name: Configure coscmd
+        env:
+          SECRET_ID: ${{secrets.SECRET_ID}}
+          SECRET_KEY: ${{secrets.SECRET_KEY}}
+          BUCKET: static-1256271987
+          REGION: ap-beijing
+        run: coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+
       - name: Build
         run: |
           cd server
           go build -ldflags "-s -w" -o main -v main.go
+
+      - name: upload
+        run: |
+          cd server
+          coscmd upload -r ./main /tmp/main
 
       - name: Deploy to server
         env:
@@ -37,6 +53,7 @@ jobs:
           chmod 600 $HOME/.ssh/id_rsa
           ssh-keyscan $REMOTE_HOST >> $HOME/.ssh/known_hosts
           cd server
+          downloadurl=`coscmd signurl /tmp/main`
           ssh $REMOTE_USER@$REMOTE_HOST "service game-log stop"
-          scp main $REMOTE_USER@$REMOTE_HOST:$REMOTE_TARGET
+          ssh $REMOTE_USER@$REMOTE_HOST "wget $downloadurl -O $REMOTE_TARGET"
           ssh $REMOTE_USER@$REMOTE_HOST "service game-log start && service game-log status"
