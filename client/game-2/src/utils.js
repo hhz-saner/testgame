@@ -62,7 +62,7 @@ const guid2 = () => {
 
 const getNumberTask = (type,num) => {
  
-  let typeTextList = ["顺序", "倒叙", "从小到大", "按字母表顺序", "加和"]
+  let typeTextList = ["顺序", "倒序", "从小到大", "按字母表顺序", "加和"]
   if(!num){
     num = randomRange(2, 5)
   }
@@ -75,7 +75,7 @@ const getNumberTask = (type,num) => {
   };
 }
 const getLetterTask = (type,num) => {
-  let typeTextList = ["顺序", "倒叙", "从小到大", "按字母表顺序", "加和"]
+  let typeTextList = ["顺序", "倒序", "从小到大", "按字母表顺序", "加和"]
   if(!num){
     num = randomRange(2, 5)
   }

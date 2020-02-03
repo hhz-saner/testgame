@@ -20,8 +20,7 @@ import {
     Input,
     Button,
     Checkbox,
-    Icon,
-    InputSearch
+    Icon
 } from 'ant-design-vue';
 
 Vue.component(Row.name, Row)

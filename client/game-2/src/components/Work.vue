@@ -1,6 +1,7 @@
 <template>
   <div class="task">
     <div v-if="showInput" class="input-search">
+      <p>正确答案： {{task.right}}</p>
       <a-input-search placeholder="请输入答案" @search="submit" enterButton="提交" size="large" />
     </div>
     <div v-else>
@@ -9,7 +10,6 @@
         <p v-if="showtype" class="cross-type">{{task.typeName}}</p>
       </div>
     </div>
-    <div class="blackStyle" v-if="blackStyle"></div>
   </div>
 </template>
 <script>
@@ -20,7 +20,6 @@ export default {
     return {
       showInput: false,
       showtype: true,
-      blackStyle: false,
       index: 0,
 
       input: "",
@@ -77,16 +76,5 @@ export default {
 }
 .task .input-search {
   margin-top: 30vh;
-}
-
-.task .blackStyle {
-  background-color: black;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 </style>

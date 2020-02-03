@@ -71,9 +71,9 @@ export default {
           sessionStorage.setItem("userCode", response.data.data.UserCode);
           sessionStorage.setItem("gameStatus", response.data.data.GameTwoStatus);
            if (response.data.data.GameTwoStatus == 1) {
-            this.$router.push("/round1");
+            this.$router.push("/ready-round1");
           } else if (response.data.data.GameTwoStatus == 2) {
-            this.$router.push("/round2");
+            this.$router.push("/ready-round2");
           } else if (response.data.data.GameTwoStatus == 3) {
             this.$router.push("/finished");
           } else {

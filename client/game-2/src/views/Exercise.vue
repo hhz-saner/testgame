@@ -1,7 +1,7 @@
 <template>
   <div class="exercise container">
     <work :task="task" v-if="showWork" v-on:submit="submit"></work>
-    <div class="blackStyle" v-else></div>
+    <div class="black-style" v-else></div>
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
       }
       if (this.tasks.length > 0) {
         this.showWork = false;
-        setTimeout(this.startNextRound, 1500);
+        setTimeout(this.startNextRound, 500);
       } else {
         let correctRate =  Math.round((this.right / this.count) * 100);
         sessionStorage.setItem("correct-rate",correctRate);

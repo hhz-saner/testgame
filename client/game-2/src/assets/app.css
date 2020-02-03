@@ -39,14 +39,14 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 40vh;
+    top: 50vh;
     bottom: 0;
     margin: auto;
-    font-size: 20px;
+    font-size: 30px;
 }
 
-.blackStyle {
-    background-color: black;
+.black-style {
+    background-color: white;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -54,4 +54,13 @@
     bottom: 0;
     left: 0;
     right: 0;
+  }
+
+  .true-content{
+      font-size: 30px;
+      margin-top: 5vh;
+  }
+
+  .red{
+      color: red;
   }
