@@ -48,10 +48,31 @@
   width: 100%;
   height: 100%;
 }
-
 .ant-btn-primary{
   background-color:black;
   border-color:black;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: black;
+    border-color: black;
+}
+.ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    border-color: black;
+    border-right-width: 1px !important;
+}
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    color: #fff;
+    background-color: black;
+    border-color: black;
+}
+.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    background: #fff;
+    text-decoration: none;
+}
+.ant-btn:hover, .ant-btn:focus {
+    color: #fff;
+    background-color: black;
+    border-color: black;
 }
 </style>
 
