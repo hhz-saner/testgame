@@ -10,7 +10,7 @@
       <p>8 4 6 0 2</p>
       <p>正确答案为</p>
       <p class="true-content">20</p>
-      <p class="bottom-tip red">接下来，让我们做一组练习</p>
+      <p class="bottom-tip-long red">接下来，让我们做一组练习</p>
     </div>
     <div class="content" v-else>
       <div v-if="correct" class="content">
