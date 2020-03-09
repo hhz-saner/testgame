@@ -1,7 +1,14 @@
 <template>
   <div class="exercise container">
-    <work :task="task" v-if="showWork" v-on:submit="submit"></work>
-    <div class="black-style" v-else></div>
+    <div v-if="startWork">
+      <work :task="task" v-if="showWork" v-on:submit="submit"></work>
+      <div class="black-style" v-else></div>
+    </div>
+    <div v-else class="content">
+      <p>正确率{{correctRate}}</p>
+      <p>{{right}}/{{reportList.length}}</p>
+      <p class="cross">{{number}}/{{count}}</p>
+    </div>
   </div>
 </template>
 
@@ -14,11 +21,20 @@ export default {
     return {
       tasks: [],
       reportList: [],
-      showWork: true,
+      startWork: false,
+      showWork: false,
       right: 0,
       count: 0,
       task: null
     };
+  },
+  computed: {
+    correctRate: function() {
+      return Math.round((this.right / this.reportList.length) * 100);
+    },
+    number: function() {
+      return this.reportList.length + 1;
+    }
   },
   created() {
     for (let i = 1; i <= 2; i++) {
@@ -34,6 +50,7 @@ export default {
     this.count = this.tasks.length;
     this.right = 0;
     this.getTask();
+    setTimeout(this.start, 1000);
   },
   components: {
     Work
@@ -44,17 +61,23 @@ export default {
       let task = this.tasks.splice(randomNum, 1)[0];
       this.task = task;
     },
+    start() {
+      this.$nextTick(() => {
+        this.startWork = true;
+        this.showWork = true;
+      });
+    },
     submit(value) {
       this.reportList.push(value);
       if (value.correct) {
         this.right++;
       }
       if (this.tasks.length > 0) {
+        this.startWork = false;
         this.showWork = false;
         setTimeout(this.startNextRound, 500);
       } else {
-        let correctRate =  Math.round((this.right / this.count) * 100);
-        sessionStorage.setItem("correct-rate",correctRate);
+        let correctRate = Math.round((this.right / this.count) * 100);
         if (correctRate < 80) {
           this.$router.push("/again");
         } else {
@@ -75,6 +98,7 @@ export default {
             }
           }).then(response => {
             if (response.data.code > 0) {
+              sessionStorage.setItem("correct-rate", correctRate);
               sessionStorage.setItem("gameStatus", 1);
               this.$router.push("/ready-round1");
             } else {
@@ -86,14 +110,11 @@ export default {
     },
     startNextRound() {
       this.getTask();
-      this.$nextTick(() => {
-        this.showWork = true;
-      });
+      setTimeout(this.start, 1000);
     }
   }
 };
 </script>
 
 <style scoped>
-
 </style>
